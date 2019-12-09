@@ -1,13 +1,12 @@
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0, 2, 3"
-
-seed_numbers = [42, 593, 1774, 65336, 189990]
+# seed_numbers = [42, 593, 1774, 65336, 189990]
+seed_numbers = [42]
 model_type = 'bert'
 absa_type = 'tfm'
 tfm_mode = 'finetune'
 fix_tfm = 0
-task_name = 'rest_total'
+task_name = 'laptop14'
 warmup_steps = 0
 overfit = 0
 if task_name == 'laptop14':

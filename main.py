@@ -362,11 +362,11 @@ def main():
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1 or args.no_cuda:
-        device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
+        device = torch.device("cuda:0" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         args.n_gpu = torch.cuda.device_count()
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)
-        device = torch.device("cuda", args.local_rank)
+        device = torch.device("cuda:0", args.local_rank)
         os.environ['MASTER_ADDR'] = args.MASTER_ADDR
         os.environ['MASTER_PORT'] = args.MASTER_PORT
         torch.distributed.init_process_group(backend='nccl', rank=args.local_rank, world_size=1)
@@ -403,13 +403,13 @@ def main():
     config = config_class.from_pretrained(args.config_name if args.config_name else args.model_name_or_path,
                                           num_labels=num_labels, finetuning_task=args.task_name)
     tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name if args.tokenizer_name else args.model_name_or_path,
-                                                do_lower_case=args.do_lower_case, cache_dir='./cache')
+                                                do_lower_case=args.do_lower_case)
 
     config.absa_type = args.absa_type
     config.tfm_mode = args.tfm_mode
     config.fix_tfm = args.fix_tfm
     model = model_class.from_pretrained(args.model_name_or_path, from_tf=bool('.ckpt' in args.model_name_or_path),
-                                        config=config, cache_dir='./cache')
+                                        config=config)
     # Distributed and parallel training
     model.to(args.device)
     if args.local_rank != -1:
