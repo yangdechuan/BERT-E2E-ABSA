@@ -403,13 +403,13 @@ def main():
     config = config_class.from_pretrained(args.config_name if args.config_name else args.model_name_or_path,
                                           num_labels=num_labels, finetuning_task=args.task_name)
     tokenizer = tokenizer_class.from_pretrained(args.tokenizer_name if args.tokenizer_name else args.model_name_or_path,
-                                                do_lower_case=args.do_lower_case, cache_dir='./cache')
+                                                do_lower_case=args.do_lower_case)
 
     config.absa_type = args.absa_type
     config.tfm_mode = args.tfm_mode
     config.fix_tfm = args.fix_tfm
     model = model_class.from_pretrained(args.model_name_or_path, from_tf=bool('.ckpt' in args.model_name_or_path),
-                                        config=config, cache_dir='./cache')
+                                        config=config)
     # Distributed and parallel training
     model.to(args.device)
     if args.local_rank != -1:
