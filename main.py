@@ -452,7 +452,8 @@ def main():
     checkpoints = [args.output_dir]
     if args.eval_all_checkpoints:
         checkpoints = list(os.path.dirname(c) for c in sorted(glob.glob(args.output_dir + '/**/' + WEIGHTS_NAME, recursive=True)))
-        logging.getLogger("pytorch_transformers.modeling_utils").setLevel(logging.WARN)  # Reduce logging
+        # logging.getLogger("pytorch_transformers.modeling_utils").setLevel(logging.WARN)  # Reduce logging
+        logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)
     logger.info("Perform validation on the following checkpoints: %s", checkpoints)
     test_results = {}
     for checkpoint in checkpoints:
