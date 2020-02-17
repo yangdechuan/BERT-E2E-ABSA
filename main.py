@@ -381,6 +381,8 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S',
                         level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
+    logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)
+    logging.getLogger("transformers.configuration_utils").setLevel(logging.WARN)
     # not using 16-bits training
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: False",
                    args.local_rank, device, args.n_gpu, bool(args.local_rank != -1))
@@ -453,7 +455,7 @@ def main():
     if args.eval_all_checkpoints:
         checkpoints = list(os.path.dirname(c) for c in sorted(glob.glob(args.output_dir + '/**/' + WEIGHTS_NAME, recursive=True)))
         # logging.getLogger("pytorch_transformers.modeling_utils").setLevel(logging.WARN)  # Reduce logging
-        logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)
+
     logger.info("Perform validation on the following checkpoints: %s", checkpoints)
     test_results = {}
     for checkpoint in checkpoints:
