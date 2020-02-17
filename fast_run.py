@@ -3,7 +3,7 @@ import os
 # seed_numbers = [42, 593, 1774, 65336, 189990]
 seed_numbers = [42]
 model_type = 'bert'
-absa_type = 'tfm'
+absa_type = 'linear'
 tfm_mode = 'finetune'
 fix_tfm = 0
 task_name = 'laptop14'
