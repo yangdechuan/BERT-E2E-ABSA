@@ -383,6 +383,7 @@ def main():
                         level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
     logging.getLogger("transformers.modeling_utils").setLevel(logging.WARN)
     logging.getLogger("transformers.configuration_utils").setLevel(logging.WARN)
+    logging.getLogger("transformers.tokenization_utils").setLevel(logging.WARN)
     # not using 16-bits training
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: False",
                    args.local_rank, device, args.n_gpu, bool(args.local_rank != -1))
